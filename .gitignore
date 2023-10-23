@@ -6,6 +6,7 @@ npm-debug.log
 
 # Environment Variables should NEVER be published
 .env
+default.env
 
 # macOS
 .DS_Store
@@ -21,3 +22,4 @@ ehthumbs.db
 
 # VS Code
 .vscode/*
+default.env
