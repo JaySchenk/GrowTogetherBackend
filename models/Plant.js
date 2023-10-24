@@ -6,6 +6,11 @@ const plantSchema = new Schema({
         required: true,
         unique: true
     },
+    image:{
+        type: String,
+        default: 'https://png.pngtree.com/png-clipart/20220829/ourmid/pngtree-indoor-plant-png-image_6129530.png',
+    },
+    about:{String},
     care_instructions: {
         water: {
             frequency: {
