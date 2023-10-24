@@ -46,6 +46,25 @@ router.get("/userplants", async (request, response) => {
     response.status(500).json({ error: "Status code: 500 (Internal Server Error)" });
   }
 });
+// get 1 user plant
+router.get('/userplants/:userPlantId', async (request, response) => {
+  const { userPlantId } = request.params
+  if (mongoose.isValidObjectId(userPlantId)) {
+    try {
+      const singleUserPlant = await UserPlant.findById(userPlantId).populate('plantSpecies')
+      if (singleUserPlant) {
+        response.json({ onePlant: singleUserPlant })
+      } else {
+        response.status(404).json({ message: 'Plant not found' })
+      }
+    } catch (error) {
+      console.log(error)
+      response.status(400).json({ error })
+    }
+  } else {
+    response.status(400).json({ message: 'The id seems wrong' })
+  }
+})
 
 // post plantcare
 router.post('/plantcare', async (request, response) => {

@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 
 const userPlantSchema = new Schema({
     plantname: {type: String, required: true},
-    plantSpecies: {type:mongoose.Schema.Types.ObjectId, ref: 'plant'},
+    plantSpecies: {type:mongoose.Schema.Types.ObjectId, ref: 'Plant'},
     dateOfAcquisition: Date,
     plantPicture: String,
     plantCutting: {type: Number, default: 0},
