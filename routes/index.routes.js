@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Plant = require('../models/Plant');
+const UserPlant = require('../models/UserPlants')
 const mongoose = require("mongoose");
 
 router.get('/', (req, res, next) => {
@@ -16,7 +17,6 @@ router.get("/plantcare", async (request, response) => {
     response.status(500).json({ error: "Status code: 500 (Internal Server Error)" });
   }
 });
-
 // get individual plantcare
 router.get("/plantcare/:plantCareId", async (request, response) => {
   const { plantCareId } = request.params;
@@ -37,12 +37,31 @@ router.get("/plantcare/:plantCareId", async (request, response) => {
     response.status(400).json({ message: "The id seems wrong" });
   }
 });
+// get all users plants
+router.get("/userplants", async (request, response) => {
+  try {
+    const plants = await UserPlant.find();
+    response.status(200).json(plants);
+  } catch (error) {
+    response.status(500).json({ error: "Status code: 500 (Internal Server Error)" });
+  }
+});
 
 // post plantcare
-router.post('/plantcare/', async (request, response) => {
+router.post('/plantcare', async (request, response) => {
   try {
     const newPlantCare = await Plant.create(request.body)
     response.status(201).json({ Plant: newPlantCare })
+  } catch (error) {
+    console.log(error)
+    response.status(400).json({ error })
+  }
+})
+//post user plant
+router.post('/userplants/', async (request, response) => {
+  try {
+    const newUserPlant = await UserPlant.create(request.body)
+    response.status(201).json({ UserPlant: newUserPlant })
   } catch (error) {
     console.log(error)
     response.status(400).json({ error })
@@ -61,12 +80,31 @@ router.put('/plantcare/:plantCareId', async (request, response) => {
     response.status(400).json({ error })
   }
 })
+// update user plant
+router.put('/userplants/:userPlantId', async (request, response) => {
+  const { userPlantId } = request.params;
+
+  try {
+    const updateUserPlant = await UserPlant.findByIdAndUpdate(userPlantId, request.body, { new: true })
+    response.status(202).json({ UserPlant: updateUserPlant })
+  } catch (error) {
+    console.log(error)
+    response.status(400).json({ error })
+  }
+})
 
 // delete plantcare
 router.delete('/plantcare/:plantCareId', async (request, response) => {
   const { plantCareId } = request.params
 
   await Plant.findByIdAndDelete(plantCareId)
+  response.status(202).json({ message: 'Plant deleted' })
+})
+// delete user plant
+router.delete('/userplants/:userPlantId', async (request, response) => {
+  const { userPlantId } = request.params
+
+  await UserPlant.findByIdAndDelete(userPlantId)
   response.status(202).json({ message: 'Plant deleted' })
 })
 
