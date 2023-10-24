@@ -7,6 +7,7 @@ router.get('/', (req, res, next) => {
   res.json('All good in here')
 })
 
+// get plantcare
 router.get("/plantcare", async (request, response) => {
   try {
     const plants = await Plant.find();
@@ -16,6 +17,7 @@ router.get("/plantcare", async (request, response) => {
   }
 });
 
+// get individual plantcare
 router.get("/plantcare/:plantCareId", async (request, response) => {
   const { plantCareId } = request.params;
   console.log(plantCareId)
@@ -23,7 +25,7 @@ router.get("/plantcare/:plantCareId", async (request, response) => {
     try {
       const currentPlantCare = await Plant.findById(plantCareId);
       if (currentPlantCare) {
-        response.json({ student: currentPlantCare });
+        response.json({ Plant: currentPlantCare });
       } else {
         response.status(404).json({ message: "Plantcare instructions not found" });
       }
@@ -35,6 +37,38 @@ router.get("/plantcare/:plantCareId", async (request, response) => {
     response.status(400).json({ message: "The id seems wrong" });
   }
 });
+
+// post plantcare
+router.post('/plantcare/', async (request, response) => {
+  try {
+    const newPlantCare = await Plant.create(request.body)
+    response.status(201).json({ Plant: newPlantCare })
+  } catch (error) {
+    console.log(error)
+    response.status(400).json({ error })
+  }
+})
+
+// update existing plantcare
+router.put('/plantcare/:plantCareId', async (request, response) => {
+  const { plantCareId } = request.params;
+
+  try {
+    const updatePlant = await Plant.findByIdAndUpdate(plantCareId, request.body, { new: true })
+    response.status(202).json({ Plant: updatePlant })
+  } catch (error) {
+    console.log(error)
+    response.status(400).json({ error })
+  }
+})
+
+// delete plantcare
+router.delete('/plantcare/:plantCareId', async (request, response) => {
+  const { plantCareId } = request.params
+
+  await Plant.findByIdAndDelete(plantCareId)
+  response.status(202).json({ message: 'Plant deleted' })
+})
 
 /* Make some routes there for what you need, don't forget that you can use your middleware where you define the use of this router */
 
