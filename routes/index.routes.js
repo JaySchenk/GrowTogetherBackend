@@ -25,7 +25,7 @@ router.get("/plantcare/:plantCareId", async (request, response) => {
       if (currentPlantCare) {
         response.json({ student: currentPlantCare });
       } else {
-        response.status(404).json({ message: "Plantcare not found" });
+        response.status(404).json({ message: "Plantcare instructions not found" });
       }
     } catch (error) {
       console.log(error);
