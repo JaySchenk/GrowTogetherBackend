@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
+const mongoose = require("mongoose");
 
-// TODO: Please make sure you edit the User model to whatever makes sense in this case
 const userSchema = new Schema(
   {
     email: {
@@ -16,11 +16,12 @@ const userSchema = new Schema(
     },
     address: {
       streetHouseNumb: String,
-      city: String,
       postalCode: String,
-      Country: String
+      city: String,
+      country: String
     },
-    telephone: String
+    telephone: String,
+    plants: [{type:mongoose.Schema.Types.ObjectId, ref: 'Plant'}]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
