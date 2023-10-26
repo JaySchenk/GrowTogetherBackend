@@ -46,12 +46,13 @@ router.post('/login', async (req, res, next) => {
   /* If your user exists, check if the password is correct */
   if (potentialUser) {
     if (bcrypt.compareSync(password, potentialUser.passwordHash)) {
+      
       const authToken = jwt.sign(
         {
           expiresIn: '6h',
           user: {
             id: potentialUser._id, 
-          }, // Put yhe data of your user in there
+          }, 
         },
         process.env.TOKEN_SECRET,
         {
@@ -59,7 +60,7 @@ router.post('/login', async (req, res, next) => {
         }
       );
 
-      res.status(200).json({ token: authToken });
+      res.status(200).json({ user: potentialUser, token: authToken });
     } else {
       res.status(400).json({ message: 'Wrong password' });
     }
