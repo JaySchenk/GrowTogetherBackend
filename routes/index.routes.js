@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Plant = require('../models/Plant.model');
 const UserPlant = require('../models/UserPlants.model')
+const User = require(`../models/User.model`)
 const mongoose = require("mongoose");
 
 router.get('/', (req, res, next) => {
@@ -38,9 +39,10 @@ router.get("/plantcare/:plantCareId", async (request, response) => {
   }
 });
 // get all users plants
-router.get("/userplants", async (request, response) => {
+router.get("/userplants/:userId", async (request, response) => {
+  const { userId } = request.params;
   try {
-    const plants = await UserPlant.find();
+    const plants = await User.findById(userId).populate(`plants`);
     response.status(200).json(plants);
   } catch (error) {
     response.status(500).json({ error: "Status code: 500 (Internal Server Error)" });
@@ -111,6 +113,23 @@ router.put('/userplants/:userPlantId', async (request, response) => {
     response.status(400).json({ error })
   }
 })
+//update user
+router.put('/users/:UserId', async (request, response) => {
+  const { UserId } = request.params;
+  const { plants } = request.body;
+
+  try {
+    const updateUserPlant = await User.findByIdAndUpdate(
+      UserId,
+      { $push: { plants: plants } },
+      { new: true }
+    );
+    response.status(202).json({ UserPlant: updateUserPlant });
+  } catch (error) {
+    console.log(error);
+    response.status(400).json({ error });
+  }
+});
 
 // delete plantcare
 router.delete('/plantcare/:plantCareId', async (request, response) => {

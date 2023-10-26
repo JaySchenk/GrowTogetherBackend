@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose');
 const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
 
 const userSchema = new Schema(
   {
@@ -21,7 +21,7 @@ const userSchema = new Schema(
       country: String
     },
     telephone: String,
-    plants: [{type:mongoose.Schema.Types.ObjectId, ref: 'Plant'}]
+    plants: [{type:mongoose.Schema.Types.ObjectId, ref: 'UserPlant'}]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
