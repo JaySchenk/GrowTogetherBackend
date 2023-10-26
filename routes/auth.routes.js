@@ -9,15 +9,29 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/signup', async (req, res, next) => {
-  /* Get back the payload from your request, as it's a POST you can access req.body */
   const salt = bcrypt.genSaltSync(13);
-  /* Hash the password using bcryptjs */
   const passwordHash = bcrypt.hashSync(req.body.password, salt);
-  console.log(passwordHash);
-  /* Record your user to the DB */
+
   try {
     const newUser = await User.create({ ...req.body, passwordHash });
-    res.status(201).json(newUser);
+    
+    // Generate JWT token after successful signup
+    const authToken = jwt.sign(
+      {
+        expiresIn: '6h',
+        user: {
+          id: newUser._id, // Use the ID of the user or any other unique identifier
+          // You can add more user-specific information here if needed
+        },
+      },
+      process.env.TOKEN_SECRET,
+      {
+        algorithm: 'HS256',
+      }
+    );
+
+    // Send back the new user data along with the token
+    res.status(201).json({ user: newUser, token: authToken });
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
