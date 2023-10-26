@@ -49,7 +49,9 @@ router.post('/login', async (req, res, next) => {
       const authToken = jwt.sign(
         {
           expiresIn: '6h',
-          user: potentialUser._id, // Put yhe data of your user in there
+          user: {
+            id: potentialUser._id, 
+          }, // Put yhe data of your user in there
         },
         process.env.TOKEN_SECRET,
         {
