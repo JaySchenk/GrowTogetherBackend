@@ -49,7 +49,7 @@ router.get("/userplants/:userId", async (request, response) => {
   }
 });
 // get 1 user plant
-router.get('/userplants/:userPlantId', async (request, response) => {
+router.get('/userplants/:userId/:userPlantId', async (request, response) => {
   const { userPlantId } = request.params
   if (mongoose.isValidObjectId(userPlantId)) {
     try {
@@ -148,7 +148,7 @@ router.delete('/plantcare/:plantCareId', async (request, response) => {
   response.status(202).json({ message: 'Plant deleted' })
 })
 // delete user plant
-router.delete('/userplants/:userPlantId', async (request, response) => {
+router.delete('/userplants/:userId/:userPlantId', async (request, response) => {
   const { userPlantId } = request.params
 
   await UserPlant.findByIdAndDelete(userPlantId)
