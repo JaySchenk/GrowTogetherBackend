@@ -144,11 +144,22 @@ router.delete('/plantcare/:plantCareId', async (request, response) => {
 })
 // delete user plant
 router.delete('/userplants/:userId/:userPlantId', async (request, response) => {
-  const { userPlantId } = request.params
+  const { userId, userPlantId } = request.params;
 
-  await UserPlant.findByIdAndDelete(userPlantId)
-  response.status(202).json({ message: 'Plant deleted' })
-})
+  try {
+    await User.findByIdAndUpdate(
+      userId,
+      { $pull: { plants: userPlantId } },
+      { new: true }
+    );
+    await UserPlant.findByIdAndDelete(userPlantId);
+
+    response.status(202).json({ message: 'Plant deleted' });
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({ error: 'Server error' });
+  }
+});
 
 /* Make some routes there for what you need, don't forget that you can use your middleware where you define the use of this router */
 
