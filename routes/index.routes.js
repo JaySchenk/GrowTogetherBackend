@@ -49,24 +49,19 @@ router.get("/userplants/:userId", async (request, response) => {
   }
 });
 // get 1 user plant
-router.get('/userplants/:userId/:userPlantId', async (request, response) => {
-  const { userPlantId } = request.params
-  if (mongoose.isValidObjectId(userPlantId)) {
-    try {
-      const singleUserPlant = await UserPlant.findById(userPlantId).populate('plantSpecies')
-      if (singleUserPlant) {
-        response.json({ onePlant: singleUserPlant })
-      } else {
-        response.status(404).json({ message: 'Plant not found' })
-      }
-    } catch (error) {
-      console.log(error)
-      response.status(400).json({ error })
+router.get('/plant/:plantId', async (request, response) => {
+  const { plantId } = request.params;
+  try {
+    const plant = await UserPlant.findById(plantId).populate('plantSpecies');
+    if (!plant) {
+      return response.status(404).json({ message: 'Plant not found' });
     }
-  } else {
-    response.status(400).json({ message: 'The id seems wrong' })
+    response.status(200).json({ plant });
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({ error: 'Server error' });
   }
-})
+});
 
 // post plantcare
 router.post('/plantcare', async (request, response) => {
