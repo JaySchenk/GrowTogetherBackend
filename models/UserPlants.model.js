@@ -12,7 +12,6 @@ const userPlantSchema = new Schema({
     productsUsed: [{
         product: {
           type: String,
-          required: true
         },
         dateUsed: {
           type: Date,
@@ -22,7 +21,6 @@ const userPlantSchema = new Schema({
     careActivityDate: [{
         activity: {
           type: String,
-          required: true
         },
         dateOfCare: {
           type: Date,

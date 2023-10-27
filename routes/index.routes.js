@@ -106,13 +106,22 @@ router.put('/userplants/:userPlantId', async (request, response) => {
   const { userPlantId } = request.params;
 
   try {
-    const updateUserPlant = await UserPlant.findByIdAndUpdate(userPlantId, request.body, { new: true })
-    response.status(202).json({ UserPlant: updateUserPlant })
+    const updateUserPlant = await UserPlant.findByIdAndUpdate(
+      userPlantId,
+      {
+        $push: {
+          productsUsed: request.body.productsUsed,
+          careActivityDate: request.body.careActivityDate,
+        },
+      },
+      { new: true }
+    );
+    response.status(202).json({ UserPlant: updateUserPlant });
   } catch (error) {
-    console.log(error)
-    response.status(400).json({ error })
+    console.log(error);
+    response.status(400).json({ error });
   }
-})
+});
 //update user
 router.put('/users/:UserId', async (request, response) => {
   const { UserId } = request.params;
