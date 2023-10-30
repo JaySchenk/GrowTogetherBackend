@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken');
 
 const isAuthenticated = (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(' ')[1]; // get the token from headers "Bearer 123XYZ..."
-    const payload = jwt.verify(token, process.env.TOKEN_SECRET); // decode token and get payload
+    const token = req.headers.authorization.split(' ')[1]; 
+    const payload = jwt.verify(token, process.env.TOKEN_SECRET); 
 
-    req.payload = payload; // to pass the decoded payload to the next route
+    req.payload = payload; 
     next();
   } catch (error) {
     // the middleware will catch error and send 401 if:

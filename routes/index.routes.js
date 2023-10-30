@@ -21,7 +21,6 @@ router.get("/plantcare", async (request, response) => {
 // get individual plantcare
 router.get("/plantcare/:plantCareId", async (request, response) => {
   const { plantCareId } = request.params;
-  console.log(plantCareId)
   if (mongoose.isValidObjectId(plantCareId)) {
     try {
       const currentPlantCare = await Plant.findById(plantCareId);
