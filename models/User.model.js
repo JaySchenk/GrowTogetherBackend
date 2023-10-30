@@ -20,11 +20,13 @@ const userSchema = new Schema(
       city: String,
       country: String
     },
+    userPicture: String,
+    name:String,
+    surname:String,
     telephone: String,
     plants: [{type:mongoose.Schema.Types.ObjectId, ref: 'UserPlant'}]
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
   }
 );

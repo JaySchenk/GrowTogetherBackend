@@ -116,7 +116,7 @@ router.put('/userplants/:userPlantId', async (request, response) => {
     response.status(400).json({ error });
   }
 });
-//update user
+//add user plant to user ID 
 router.put('/users/:UserId', async (request, response) => {
   const { UserId } = request.params;
   const { plants } = request.body;
@@ -170,6 +170,20 @@ router.put('/userplantsUpdate/:userPlantId', async (request, response) => {
     response.status(400).json({ error });
   }
 });
+// update user profile
+router.put('/userUpdate/:UserId', async (request, response) => {
+  const { UserId } = request.params;
+  const { User } = request.body;
+
+  try {
+    const updateUser = await User.findByIdAndUpdate(UserId, User, { new: true });
+    response.status(202).json({ updatedUser: updateUser });
+  } catch (error) {
+    console.log(error);
+    response.status(400).json({ error: 'Failed to update user.' });
+  }
+});
+
 
 
 // delete plantcare
