@@ -133,6 +133,44 @@ router.put('/users/:UserId', async (request, response) => {
     response.status(400).json({ error });
   }
 });
+// update&replace user plant
+router.put('/userplantsUpdate/:userPlantId', async (request, response) => {
+  const { userPlantId } = request.params;
+  const {
+    plantname,
+    plantSpecies,
+    plantPicture,
+    plantCutting,
+    plantSize,
+    reminderSettings,
+    productsUsed,
+    careActivityDate
+  } = request.body;
+
+  try {
+    const updateUserPlant = await UserPlant.findByIdAndUpdate(
+      userPlantId,
+      {
+        $set: {
+          plantname,
+          plantSpecies,
+          plantPicture,
+          plantCutting,
+          plantSize,
+          reminderSettings,
+          productsUsed,
+          careActivityDate
+        },
+      },
+      { new: true }
+    );
+    response.status(202).json({ UserPlant: updateUserPlant });
+  } catch (error) {
+    console.log(error);
+    response.status(400).json({ error });
+  }
+});
+
 
 // delete plantcare
 router.delete('/plantcare/:plantCareId', async (request, response) => {
