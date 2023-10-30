@@ -171,10 +171,10 @@ router.put('/userplantsUpdate/:userPlantId', async (request, response) => {
   }
 });
 // update user profile
-router.put('/userUpdate/:UserId', async (request, response) => {
-  const { UserId } = request.params;
+router.put('/userUpdate/:userId', async (request, response) => {
+  const { userId } = request.params;
     try {
-    const updateUser = await User.findByIdAndUpdate(UserId, request.body, { new: true });
+    const updateUser = await User.findByIdAndUpdate(userId, request.body, { new: true });
     response.status(202).json({ updatedUser: updateUser });
   } catch (error) {
     console.log(error);
@@ -182,7 +182,21 @@ router.put('/userUpdate/:UserId', async (request, response) => {
   }
 });
 
-
+//get user profile
+router.get('/getUser/:userId', async (request, response) => {
+  const { userId } = request.params;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      response.status(404).json({ error: 'User not found' });
+    } else {
+      response.status(200).json({ user });
+    }
+  } catch (error) {
+    console.log(error);
+    response.status(500).json({ error: 'Failed to retrieve user.' });
+  }
+});
 
 // delete plantcare
 router.delete('/plantcare/:plantCareId', async (request, response) => {
