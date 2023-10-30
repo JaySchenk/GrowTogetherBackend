@@ -173,10 +173,8 @@ router.put('/userplantsUpdate/:userPlantId', async (request, response) => {
 // update user profile
 router.put('/userUpdate/:UserId', async (request, response) => {
   const { UserId } = request.params;
-  const { User } = request.body;
-
-  try {
-    const updateUser = await User.findByIdAndUpdate(UserId, User, { new: true });
+    try {
+    const updateUser = await User.findByIdAndUpdate(UserId, request.body, { new: true });
     response.status(202).json({ updatedUser: updateUser });
   } catch (error) {
     console.log(error);
