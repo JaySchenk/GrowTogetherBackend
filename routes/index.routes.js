@@ -188,18 +188,26 @@ router.put("/userplantsUpdate/:userPlantId", async (request, response) => {
   }
 });
 // update user profile
-router.put("/userUpdate/:userId", async (request, response) => {
-  const { userId } = request.params;
-  try {
-    const updateUser = await User.findByIdAndUpdate(userId, request.body, {
-      new: true,
-    });
-    response.status(202).json({ updatedUser: updateUser });
-  } catch (error) {
-    console.log(error);
-    response.status(400).json({ error: "Failed to update user." });
+router.put(
+  "/userUpdate/:userId",
+  uploader.single("profilePicture"),
+  async (request, response) => {
+    const { userId } = request.params;
+    let payload = JSON.parse(request.body["Data"]);
+    payload.profilePicture = request.file;
+
+    console.log(payload);
+    try {
+      const updateUser = await User.findByIdAndUpdate(userId, payload, {
+        new: true,
+      });
+      response.status(202).json({ updatedUser: updateUser });
+    } catch (error) {
+      console.log(error);
+      response.status(400).json({ error: "Failed to update user." });
+    }
   }
-});
+);
 
 //get user profile
 router.get("/getUser/:userId", async (request, response) => {
