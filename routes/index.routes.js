@@ -84,7 +84,10 @@ router.post(
   uploader.single("plantPicture"),
   async (request, response) => {
     let payload = JSON.parse(request.body["Data"]);
-    payload.plantPicture = request.file.path;
+    
+    if (request.file) {
+      payload.plantPicture = request.file.path;
+    }
 
     try {
       const newUserPlant = await UserPlant.create(payload);
