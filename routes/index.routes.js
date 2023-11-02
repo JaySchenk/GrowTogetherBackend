@@ -184,7 +184,7 @@ router.put("/userplantsUpdate/:userPlantId", async (request, response) => {
       },
       { new: true }
     );
-    response.status(202).json({ UserPlant: updateUserPlant });
+    response.status(200).json({ UserPlant: updateUserPlant });
   } catch (error) {
     console.log(error);
     response.status(400).json({ error });
