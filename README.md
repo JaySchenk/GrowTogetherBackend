@@ -25,10 +25,12 @@ User Profile:
 - / - Homepage
 - /signup - Signup form
 - /login - Login form
-- /plants - List of user's plants
-- /plants/add - Form to add a new plant
-- /plants/:id - Plant detail and care advice
-- /profile/me - User's profile and settings
+- /uplant - List of user's plants
+- /uprofile - User's profile and settings
+- /createplant - Form to add a new plant
+- /plantcare - Library of supported plants
+- /plantcare/:id - Plant species detail and general care advice
+- updateplant/:plantId - update a specific plant
 
 ## Pages
 
@@ -47,14 +49,15 @@ User Profile:
 - Logged in Navbar
 - Logged out Navbar
 - New User Plant
-  creating new user plant
-  update water date
-- Plant Card
-  displays general plantcare advice depending on species
+    creating new user plant
+    update water date
+- Plant Card 
+    displays general plantcare advice depending on species
 - User Plant Card
-  displays relevant information for a signle user plant
+    displays relevant information for a signle user plant
 - Update plant
-  change plant values
+    change plant values
+
 
 ## Models
 
@@ -90,7 +93,7 @@ potSize - String // required
 growthStages - [string] // required
 commonPests diseases - string // required
 toxicity - [string] // required
-difficultyCareLevel - [string] // required
+difficultyCareLevel - [string] // required 
 ```
 
 User Plant model
@@ -112,35 +115,33 @@ reminderSettings - boolean
 ```
 
 ## Services
-
+```
 - Auth Service
-  auth.login
-  auth.signup
-  auth.verify
+    -auth.login
+    -auth.signup
+    -auth.verify
 - Api Service
-  get /getUser/:userId
-  get /plantcare
-  get /plantcare/:plantCareId
-  post /plantcare
-  put /plantcare/:plantCareId
-  delete /plantcare/:plantCareId
-  post /userplants
-  get /userplant/:userId
-  put /userplants/:userPlantId
-  get /plant/:plantId
-  put /users/:UserId
-  put /userplantsUpdate/:userPlantId
-  delete /userplants/:userId/:userPlantId
-  put /userUpdate/:userId
-
+    -get     /getUser/:userId
+    -get     /plantcare
+    -get     /plantcare/:plantCareId
+    -post    /plantcare
+    -put     /plantcare/:plantCareId
+    -delete  /plantcare/:plantCareId
+    -post    /userplants
+    -get     /userplant/:userId
+    -put     /userplants/:userPlantId
+    -get     /plant/:plantId
+    -put     /users/:UserId
+    -put     /userplantsUpdate/:userPlantId
+    -delete  /userplants/:userId/:userPlantId
+    -put     /userUpdate/:userId
+```
 ## Links
 
 ### Github
-
-- Frontend https://github.com/JaySchenk/GrowTogether
-- Backend https://github.com/JaySchenk/GrowTogetherBackend
-- Deployed https://vocal-elf-bdb61c.netlify.app
+- Frontend  https://github.com/JaySchenk/GrowTogether
+- Backend   https://github.com/JaySchenk/GrowTogetherBackend
+- Deployed  https://vocal-elf-bdb61c.netlify.app
 
 ### Trello
-
 ![image of trello board](https://i.imgur.com/otbd0Al.png)
