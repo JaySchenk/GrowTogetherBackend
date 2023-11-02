@@ -143,4 +143,4 @@ reminderSettings - boolean
 
 ### Trello
 
-!(https://i.imgur.com/otbd0Al.png)
+![image of trello board](https://i.imgur.com/otbd0Al.png)
