@@ -1,6 +1,6 @@
 # Grow Together
 <img src="https://github.com/JaySchenk/GrowTogether/raw/main/public/logo.png" alt="logo" width="300"/> </br>
-[Click here to see the deployed app](https://vocal-elf-bdb61c.netlify.app/)
+[Click here to see the deployed app](https://grow-together.netlify.app)
 
 "Grow Together" is a React-based application that assists users in plant care by providing watering reminders, advice, and general plant information.
 
@@ -143,7 +143,7 @@ reminderSettings - boolean
 ### Github
 - Frontend  https://github.com/JaySchenk/GrowTogether
 - Backend   https://github.com/JaySchenk/GrowTogetherBackend
-- Deployed  https://vocal-elf-bdb61c.netlify.app
+- Deployed  https://grow-together.netlify.app
 
 ### Trello
 <img src="https://i.imgur.com/otbd0Al.png" alt="logo" width="600"/> </br>
