@@ -1,4 +1,6 @@
 # Grow Together
+<img src="./public/logo.png" alt="logo" width="300"/> </br>
+[Click here to see the deployed app](https://vocal-elf-bdb61c.netlify.app/)
 
 "Grow Together" is a React-based application that assists users in plant care by providing watering reminders, advice, and general plant information.
 
@@ -144,4 +146,5 @@ reminderSettings - boolean
 - Deployed  https://vocal-elf-bdb61c.netlify.app
 
 ### Trello
-![image of trello board](https://i.imgur.com/otbd0Al.png)
+<img src="https://i.imgur.com/otbd0Al.png" alt="logo" width="600"/> </br>
+
