@@ -1,5 +1,5 @@
 # Grow Together
-<img src="./public/logo.png" alt="logo" width="300"/> </br>
+<img src="https://github.com/JaySchenk/GrowTogether/raw/main/public/logo.png" alt="logo" width="300"/> </br>
 [Click here to see the deployed app](https://vocal-elf-bdb61c.netlify.app/)
 
 "Grow Together" is a React-based application that assists users in plant care by providing watering reminders, advice, and general plant information.
