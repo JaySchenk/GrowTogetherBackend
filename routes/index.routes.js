@@ -84,7 +84,7 @@ router.post(
   uploader.single("plantPicture"),
   async (request, response) => {
     let payload = JSON.parse(request.body["Data"]);
-    
+
     if (request.file) {
       payload.plantPicture = request.file.path;
     }
@@ -154,42 +154,50 @@ router.put("/users/:UserId", async (request, response) => {
   }
 });
 // update&replace user plant
-router.put("/userplantsUpdate/:userPlantId", async (request, response) => {
-  const { userPlantId } = request.params;
-  const {
-    plantName,
-    plantSpecies,
-    plantPicture,
-    plantCutting,
-    plantSize,
-    reminderSettings,
-    productsUsed,
-    careActivityDate,
-  } = request.body;
+router.put(
+  "/userplantsUpdate/:userPlantId",
+  uploader.single("plantPicture"),
+  async (request, response) => {
+    const { userPlantId } = request.params;
+    let {
+      plantName,
+      plantSpecies,
+      plantCutting,
+      plantSize,
+      plantPicture,
+      reminderSettings,
+      productsUsed,
+      careActivityDate,
+    } = JSON.parse(request.body["Data"]);
 
-  try {
-    const updateUserPlant = await UserPlant.findByIdAndUpdate(
-      userPlantId,
-      {
-        $set: {
-          plantName,
-          plantSpecies,
-          plantPicture,
-          plantCutting,
-          plantSize,
-          reminderSettings,
-          productsUsed,
-          careActivityDate,
+    if (request.file) {
+      plantPicture = request.file.path;
+    }
+
+    try {
+      const updateUserPlant = await UserPlant.findByIdAndUpdate(
+        userPlantId,
+        {
+          $set: {
+            plantName,
+            plantSpecies,
+            plantPicture,
+            plantCutting,
+            plantSize,
+            reminderSettings,
+            productsUsed,
+            careActivityDate,
+          },
         },
-      },
-      { new: true }
-    );
-    response.status(200).json({ UserPlant: updateUserPlant });
-  } catch (error) {
-    console.log(error);
-    response.status(400).json({ error });
+        { new: true }
+      );
+      response.status(200).json({ UserPlant: updateUserPlant });
+    } catch (error) {
+      console.log(error);
+      response.status(400).json({ error });
+    }
   }
-});
+);
 // update user profile
 router.put(
   "/userUpdate/:userId",
